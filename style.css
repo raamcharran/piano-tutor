@@ -1,0 +1,396 @@
+/* Classical Piano Tutor — old-money editorial aesthetic, dark mahogany mode.
+   Palette: espresso & ivory ink, with hunt green, claret, and aged brass accents.
+   Typography: EB Garamond throughout (one family, multiple weights);
+   Cormorant Garamond for display. Oldstyle figures + small caps where fitting. */
+
+:root {
+  /* Deep mahogany & ivory ink */
+  --bg:          oklch(0.14 0.015 60);    /* dark espresso base */
+  --bg-2:        oklch(0.11 0.015 60);    /* deeper */
+  --panel:       oklch(0.19 0.018 62);    /* header/footer panel */
+  --panel-2:     oklch(0.23 0.016 62);    /* slight lift */
+  --stage:       oklch(0.12 0.010 60);    /* stage top */
+  --stage-2:     oklch(0.07 0.008 60);    /* stage bottom */
+  --rule:        oklch(0.32 0.015 65);    /* hairline */
+  --rule-strong: oklch(0.48 0.020 65);    /* stronger rule */
+
+  /* Ivory ink on dark */
+  --ink:         oklch(0.92 0.012 82);    /* primary text — aged ivory */
+  --ink-2:       oklch(0.72 0.018 75);    /* secondary */
+  --ink-3:       oklch(0.55 0.020 65);    /* tertiary / captions */
+
+  /* Classical accents — slightly brighter for dark ground */
+  --forest:      oklch(0.52 0.08 145);    /* hunt green */
+  --forest-2:    oklch(0.62 0.09 145);
+  --burgundy:    oklch(0.54 0.12 22);     /* claret */
+  --burgundy-2:  oklch(0.64 0.13 22);
+  --brass:       oklch(0.72 0.12 82);     /* aged brass */
+  --brass-2:     oklch(0.80 0.12 82);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "EB Garamond", "Garamond", "Hoefler Text", "Times New Roman", serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.45;
+  font-feature-settings: "onum" 1, "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle grain — warm pinpricks, very low contrast */
+body {
+  display: flex;
+  flex-direction: column;
+  background-image:
+    radial-gradient(oklch(0.22 0.020 75 / 0.40) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}
+
+/* --- Header ----------------------------------------------------------- */
+
+header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 32px 14px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  left: 32px; right: 32px; bottom: -3px;
+  height: 1px;
+  background: var(--rule-strong);
+  opacity: 0.4;
+}
+
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.brand h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", "EB Garamond", "Hoefler Text", serif;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  color: var(--ink);
+}
+
+.brand h1 .sub {
+  display: block;
+  font-family: "EB Garamond", serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-2);
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+  line-height: 1.2;
+}
+
+.midi-status {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 13px;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em;
+  padding: 5px 14px;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg-2);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.midi-status.connected {
+  color: var(--forest-2);
+  border-color: var(--forest-2);
+}
+.midi-status.error {
+  color: var(--burgundy-2);
+  border-color: var(--burgundy-2);
+}
+
+/* --- Controls --------------------------------------------------------- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: center;
+  font-size: 15px;
+}
+
+.controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: var(--ink-2);
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.controls select,
+.controls input[type="number"] {
+  font-family: "EB Garamond", serif;
+  font-size: 15px;
+  font-style: normal;
+  color: var(--ink);
+  background: var(--bg-2);
+  border: 1px solid var(--rule-strong);
+  border-radius: 0;
+  padding: 4px 10px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.04);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.controls select:hover,
+.controls input[type="number"]:hover {
+  border-color: var(--ink-3);
+  background: var(--panel-2);
+}
+
+.controls select:focus,
+.controls input[type="number"]:focus {
+  outline: none;
+  border-color: var(--forest-2);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.04),
+              0 0 0 2px oklch(0.52 0.08 145 / 0.25);
+}
+
+.controls select {
+  padding-right: 26px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ink-2) 50%),
+    linear-gradient(135deg, var(--ink-2) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 54%,
+    calc(100% - 9px) 54%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.controls select option {
+  background: var(--panel);
+  color: var(--ink);
+}
+
+.controls input[type="number"] { width: 62px; padding-right: 4px; }
+
+.controls input[type="range"] {
+  width: 130px;
+  accent-color: var(--forest-2);
+  background: transparent;
+}
+
+.controls input[type="checkbox"] {
+  accent-color: var(--forest-2);
+  width: 14px; height: 14px;
+  margin-right: 2px;
+}
+
+.controls button {
+  font-family: "EB Garamond", serif;
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.18em;
+  padding: 6px 20px;
+  border: 1px solid var(--forest);
+  background: var(--forest);
+  color: oklch(0.96 0.010 82);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.controls button:hover {
+  background: var(--forest-2);
+  border-color: var(--forest-2);
+}
+
+.controls button.secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+}
+
+.controls button.secondary:hover {
+  background: var(--panel-2);
+  border-color: var(--ink-2);
+}
+
+.controls #tempo-val {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums oldstyle-nums;
+  min-width: 2.5ch;
+  display: inline-block;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* --- Main / stage ----------------------------------------------------- */
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+}
+
+.stage {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  background: linear-gradient(180deg, var(--stage) 0%, var(--stage-2) 100%);
+  border-top: 3px double var(--rule-strong);
+  border-bottom: 3px double var(--rule-strong);
+  box-shadow: inset 0 0 80px oklch(0 0 0 / 0.55);
+}
+
+#stage {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- HUD -------------------------------------------------------------- */
+
+.hud {
+  background: var(--panel);
+  padding: 14px 32px;
+  display: flex;
+  gap: 56px;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 84px;
+  position: relative;
+}
+
+.stat span {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 11px;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
+  margin-bottom: 2px;
+}
+
+.stat strong {
+  font-family: "Cormorant Garamond", "EB Garamond", serif;
+  font-weight: 600;
+  font-size: 28px;
+  font-variant-numeric: oldstyle-nums tabular-nums;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.stat.good strong { color: var(--forest-2); }
+.stat.warn strong { color: var(--brass); }
+.stat.bad  strong { color: var(--burgundy-2); }
+
+.stat + .stat::before {
+  content: "";
+  position: absolute;
+  left: -28px; top: 10px; bottom: 10px;
+  width: 1px;
+  background: var(--rule);
+  opacity: 0.8;
+}
+
+/* --- Footer ----------------------------------------------------------- */
+
+footer {
+  padding: 10px 32px;
+  background: var(--bg-2);
+  border-top: 1px solid var(--rule);
+  font-family: "EB Garamond", serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-3);
+  text-align: center;
+  flex-shrink: 0;
+  letter-spacing: 0.015em;
+}
+
+footer strong {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+footer .rule-ornament {
+  display: inline-block;
+  padding: 0 14px;
+  color: var(--rule-strong);
+  opacity: 0.8;
+}
+
+/* --- Banner ----------------------------------------------------------- */
+
+.banner {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--panel);
+  border: 1px solid var(--rule-strong);
+  color: var(--ink);
+  padding: 10px 22px;
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  z-index: 10;
+  box-shadow: 0 4px 20px oklch(0 0 0 / 0.6);
+}
+
+.banner.good { border-color: var(--forest-2); color: var(--forest-2); }
+.banner.bad  { border-color: var(--burgundy-2); color: var(--burgundy-2); }
+
+/* --- Responsive ------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  header { padding: 14px 18px 10px; }
+  header::after { left: 18px; right: 18px; }
+  .hud { padding: 12px 18px; gap: 32px; }
+  footer { padding: 8px 18px; }
+  .brand h1 { font-size: 26px; }
+  .brand h1 .sub { font-size: 13px; }
+  .controls input[type="range"] { width: 90px; }
+  .stat + .stat::before { display: none; }
+  .stat { min-width: 70px; }
+  .stat strong { font-size: 24px; }
+}
