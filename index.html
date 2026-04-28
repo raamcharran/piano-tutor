@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano Tutor — Classical Practice Companion</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>
+      Piano Tutor
+      <span class="sub">a practice companion for the classical keyboardist</span>
+    </h1>
+    <div id="midi-status" class="midi-status disconnected">MIDI &middot; initialising</div>
+  </div>
+  <div class="controls">
+    <label>Piece
+      <select id="song"></select>
+    </label>
+    <label>Mode
+      <select id="mode">
+        <option value="learn" selected>Learn — await each note</option>
+        <option value="practice">Practice — tempo &amp; scoring</option>
+        <option value="listen">Listen — demonstration</option>
+      </select>
+    </label>
+    <label>Hands
+      <select id="hands">
+        <option value="both" selected>Both</option>
+        <option value="r">Right only</option>
+        <option value="l">Left only</option>
+      </select>
+    </label>
+    <label>Tempo
+      <input id="tempo" type="range" min="30" max="200" value="80">
+      <span id="tempo-val">80</span> BPM
+    </label>
+    <label>Transpose
+      <input id="transpose" type="number" value="0" min="-12" max="12" step="1">
+      st
+    </label>
+    <label><input type="checkbox" id="labels"> Key labels</label>
+    <label><input type="checkbox" id="fingers" checked> Fingerings</label>
+    <label><input type="checkbox" id="metronome"> Metronome</label>
+    <button id="start">Begin</button>
+    <button id="stop" class="secondary">Halt</button>
+    <button id="restart" class="secondary">Restart</button>
+  </div>
+</header>
+
+<main>
+  <div class="stage">
+    <canvas id="stage"></canvas>
+  </div>
+
+  <div class="hud">
+    <div class="stat"><span>Accuracy</span><strong id="accuracy">100%</strong></div>
+    <div class="stat"><span>Hits</span><strong id="hits">0</strong></div>
+    <div class="stat"><span>Misses</span><strong id="misses">0</strong></div>
+    <div class="stat"><span>Streak</span><strong id="streak">0</strong></div>
+    <div class="stat"><span>Progress</span><strong id="progress">0%</strong></div>
+  </div>
+</main>
+
+<footer>
+  Best viewed in <strong>Chrome</strong> or <strong>Edge</strong>.
+  <span class="rule-ornament">&#x2767;</span>
+  Connect your Casio CT-X700 by USB and it will appear automatically.
+  <span class="rule-ornament">&#x2767;</span>
+  Without a keyboard, the computer keys <strong>Z&ndash;/</strong> and <strong>Q&ndash;P</strong> serve as a practice keyboard.
+</footer>
+
+<script src="songs.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
