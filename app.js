@@ -794,7 +794,7 @@ function initUI() {
   const order = [
     'cMajorScale', 'cMajorArpeggio', 'hanon1',
     'twinkle', 'mary', 'happyBirthday',
-    'odeToJoy', 'furEliseOpening', 'minuetInG',
+    'odeToJoy', 'furElise', 'minuetInG',
     'preludeInC', 'gymnopedie', 'canonInD',
     'moonlightOpening',
   ];
